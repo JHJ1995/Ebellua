@@ -463,17 +463,17 @@ export const worldCharacters = [
   },
   {
     "id": "world-018",
-    "name": "에슬린 블렌하임",
+    "name": "에슬린 모이아드",
     "aliases": [],
     "continent": "세르반",
     "continents": [
       "세르반"
     ],
-    "affiliation": "세르반 / 블렌하임 제2공작가",
+    "affiliation": "세르반 / 모이아드 제2공작가",
     "role": "궁정마법사 후보 / 귀족 마검사",
     "race": "인간",
     "shortDescription": "세르반 내 마법 통제, 귀족 야망, 라티움식 자유 학문에 대한 동경을 보여주는 인물",
-    "image": "./assets/world-characters/에슬린 블렌하임.png",
+    "image": "./assets/world-characters/에슬린 모이아드.png",
     "sources": [
       {
         "file": "대륙-에벨루아/세계관-차원 에벨루아 ㅡ 7개의 대륙.txt",
