@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="에벨루아 주요 인물 — 에벨루아 세계관 기록보관소">
+  <title>에벨루아 주요 인물 | 에벨루아 기록보관소</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/introduce-Character-Ebellua.css">
+  <script src="./js/common.js" defer></script>
+  <script type="module" src="./js/character-filter.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-brand" href="./index.html"><span>에벨루아 기록보관소</span><small lang="en">Archive of Ebellua</small></a>
+      <button class="nav-toggle" type="button" hidden aria-controls="site-nav" aria-expanded="false">
+        <span class="nav-toggle-icon" aria-hidden="true">☰</span>
+        <span class="nav-toggle-label">메뉴 열기</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="주요 메뉴">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="./index.html">홈</a></li>
+          <li><a class="nav-link" href="./introduce-Ebellua.html">에벨루아</a></li>
+          <li class="nav-group">
+            <span class="nav-group-label">대륙</span>
+            <ul class="nav-sublist">
+              <li><a class="nav-link" href="./continent-EbelluaFiveContinents.html">5대륙</a></li>
+              <li><a class="nav-link" href="./continent-Nebla.html">네블라</a></li>
+              <li><a class="nav-link" href="./continent-Astra.html">아스트라</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="./introduce-Character-Ebellua.html">세계 인물</a></li>
+          <li><a class="nav-link" href="./bestiary-Ebellua.html">생물도감</a></li>
+          <li class="nav-group">
+            <span class="nav-group-label">벨리아</span>
+            <ul class="nav-sublist">
+              <li><a class="nav-link" href="./introduce-BeliaAcademy.html">아카데미</a></li>
+              <li><a class="nav-link" href="./class-BeliaAcademy.html">학부·수업</a></li>
+              <li><a class="nav-link" href="./introduce-Characters-Belia.html">아카데미 인물</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content" class="container character-page" data-directory="world" tabindex="-1">
+    <div class="page-heading"><h1>에벨루아 주요 인물</h1><p>일곱 대륙의 인물을 이름과 대륙으로 찾아보세요.</p></div>
+    <noscript><p>인물 도감을 보려면 JavaScript를 켜 주세요. 상단 메뉴로 다른 페이지를 이용할 수 있습니다.</p></noscript>
+    <form id="character-search" class="directory-controls" hidden aria-label="인물 검색과 필터">
+      <label class="search-field" for="name-search">검색<input id="name-search" type="search" placeholder="이름, 별칭, 소속, 역할 검색" autocomplete="off"></label>
+      <div id="directory-filters" class="directory-filters"></div>
+      <button class="button" type="reset">검색·필터 초기화</button>
+    </form>
+    <section id="character-directory" aria-labelledby="directory-heading">
+      <h2 id="directory-heading">인물 도감</h2>
+      <p id="result-count" role="status" aria-live="polite" aria-atomic="true">인물 정보를 불러오는 중입니다.</p>
+      <p id="empty-result" hidden>조건에 맞는 인물이 없습니다. 검색어나 필터를 바꾸거나 초기화해 주세요.</p>
+      <div id="character-grid" class="character-grid"></div>
+    </section>
+    <dialog id="character-modal" class="character-modal" aria-labelledby="modal-title">
+      <div class="modal-toolbar"><button id="modal-close" class="button" type="button" autofocus>닫기</button></div>
+      <div id="modal-content" class="modal-content"></div>
+    </dialog>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>차원 에벨루아 · 벨리아 아카데미 기록보관소</p>
+      <a href="./index.html">홈으로</a>
+    </div>
+  </footer>
+</body>
+</html>

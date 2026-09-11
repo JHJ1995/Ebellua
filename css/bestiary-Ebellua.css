@@ -1,0 +1,11 @@
+@import url('./characters.css');
+body { --color-background:#f1f0e7; --color-accent:#4b6045; --color-accent-soft:#e0e4d5; --color-border:#c4c9b7; --page-glow:#dce0ce; }
+.field-note { margin-block:1rem; max-width:78ch; padding:.75rem 1rem; border-left:3px solid var(--color-accent); background:var(--color-accent-soft); font-size:.9rem; }
+.bestiary-page .field-card { border-radius:0; background:#e6e9dc; border-top:3px double var(--color-accent); }
+.bestiary-page .character-portrait { aspect-ratio:4/3; background:radial-gradient(ellipse,#f4f4eb,#c5ccb9); object-fit:contain; }
+.bestiary-page .character-card-body { background:repeating-linear-gradient(0deg,transparent,transparent 31px,#66775b0b 32px),#eef0e5; }
+.bestiary-page .character-meta { border-bottom:1px solid var(--color-border); padding-bottom:.5rem; }
+.bestiary-page .modal-copy h3 { font-size:1rem; border-bottom:1px solid var(--color-border); padding-bottom:.4rem; }
+.phase-images { display:grid; gap:1rem; }
+.phase-images figure { margin:0; }
+.phase-images figcaption { font-size:.85rem; margin-top:.4rem; }

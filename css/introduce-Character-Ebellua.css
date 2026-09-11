@@ -1,0 +1,6 @@
+/* Shared character directory styles, scoped to the two directories. */
+@import url("./characters.css");
+
+/* Phase 7: visual and accessibility polish. */
+body { --color-accent:#5e4d39; --page-glow:#e7dccb; }
+

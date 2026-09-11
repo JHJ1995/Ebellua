@@ -1,0 +1,6 @@
+/* Page-specific styles are reserved for a later phase. */
+
+/* Phase 7: visual and accessibility polish. */
+#serban { --color-accent:#765133; } #graim { --color-accent:#4e606b; } #eluna { --color-accent:#416647; } #jahar { --color-accent:#805039; } #latium { --color-accent:#32666b; }
+#continents > section { border-top:2px solid var(--color-accent); }
+

@@ -1,0 +1,10 @@
+/* Page-specific styles are reserved for a later phase. */
+
+/* Phase 7: visual and accessibility polish. */
+body { --color-background:#f0eef1; --color-surface:#faf9fb; --color-accent:#594765; --color-accent-soft:#e4dde8; --color-border:#cbc4cf; --page-glow:#d6cfde; --color-text:#2c2730; --color-muted:#625967; }
+.continent-page .page-heading { border-top-style:double; border-top-width:5px; }
+
+
+/* Phase 7.5: archive identity. */
+.continent-page .region-card { border-radius:0; border-style:solid dashed; box-shadow:inset 4px 0 var(--color-border); }
+.continent-page .page-heading { background:linear-gradient(120deg,#d4cddc,#ebe7ee); }

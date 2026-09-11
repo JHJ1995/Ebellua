@@ -1,0 +1,44 @@
+/* Page-specific styles are reserved for a later phase. */
+
+/* Phase 7: visual and accessibility polish. */
+body { --page-glow:#e2dbc9; }
+main > .content-section .link-list { display:flex; flex-wrap:wrap; gap:.75rem; list-style:none; padding:0; }
+main > .content-section .link-list li { margin:0; }
+main > .content-section .link-list a { display:inline-block; padding:.8rem 1rem; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); box-shadow:var(--shadow-soft); }
+.entry-intro { position:fixed; inset:0; z-index:100; display:grid; place-items:center; overflow:hidden; background:#111820; color:#f4eddd; pointer-events:none; animation:entry-cover 2.2s ease-in both; }
+.entry-art { position:absolute; inset:0; display:grid; place-items:center; background:radial-gradient(ellipse at center,#cbd9cf55,transparent 50%); }
+.entry-art::before { content:""; position:absolute; width:min(65vw,42rem); aspect-ratio:1; border:1px solid #b5c9c477; border-radius:50%; box-shadow:0 0 70px #afc9c233,inset 0 0 50px #afc9c222; animation:entry-ring 2.2s ease-in both; }
+.entry-art img { width:min(80vw,65rem); height:auto; max-height:80vh; object-fit:contain; opacity:0; animation:entry-map 2.2s ease-in both; }
+.entry-title { position:relative; text-align:center; letter-spacing:.2em; text-shadow:0 2px 15px #000; animation:entry-title 2.2s ease-in both; }
+.entry-title strong { display:block; font-size:clamp(1.8rem,6vw,3.5rem); font-weight:500; }
+.entry-title span { display:block; margin-top:.8rem; }
+.entry-skip { position:absolute; top:max(1rem,env(safe-area-inset-top)); right:1rem; pointer-events:auto; padding:.7rem 1rem; color:#f4eddd; background:#19242e; border:1px solid #a5b3b7; border-radius:var(--radius); }
+.entry-skip:focus-visible { outline:3px solid #fff; outline-offset:4px; }
+@keyframes entry-cover { 0%,75% { opacity:1; visibility:visible; } 100% { opacity:0; visibility:hidden; } }
+@keyframes entry-map { 0%,12% { opacity:0; transform:scale(.65); } 42% { opacity:.4; transform:scale(.8); } 78% { opacity:.6; } 100% { opacity:0; transform:scale(2.5); } }
+@keyframes entry-ring { 0% { opacity:0; transform:scale(1.5); } 30% { opacity:1; } 75% { opacity:.8; transform:scale(.25); } 100% { opacity:0; transform:scale(3); } }
+@keyframes entry-title { 0% { opacity:0; } 25%,55% { opacity:1; } 85%,100% { opacity:0; } }
+@media(prefers-reduced-motion:reduce) { .entry-intro { display:none !important; } }
+
+
+/* Phase 7.5: archive identity. */
+
+.portal-home .archive-hero { padding:clamp(1.5rem,4vw,4rem); min-height:19rem; background:linear-gradient(90deg,#ede5d5f2,#ede5d5b3),url('../assets/maps/ebellua_world_map.png') center 45% / cover; border-block:3px double var(--color-accent); }
+.archive-hero h1 { font-size:clamp(2.3rem,6vw,4.2rem); line-height:1.16; }
+.archive-kicker { font-size:.7rem; letter-spacing:.25em; }
+.portal-grid { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); margin-top:-1.5rem; position:relative; gap:1rem; padding-inline:1.5rem; }
+.portal { position:relative; grid-column:span 2; display:flex; flex-direction:column; min-height:15rem; padding:1.6rem; color:var(--color-text); text-decoration:none; border:1px solid #c3b59a; border-top:3px solid var(--color-accent); background:linear-gradient(145deg,#e7dbc3,#f5f0e5); transition:border-color .2s,background-color .2s; }
+.portal-world,.portal-continents { grid-column:span 3; }
+.portal-continents { background:linear-gradient(130deg,#e1e3ce,#f5f0df); }
+.portal-people { background:linear-gradient(145deg,#ded6d0,#f4eee9); }
+.portal-bestiary { background:linear-gradient(145deg,#d4d9c8,#edf0e3); }
+.portal-academy { background:linear-gradient(145deg,#cbded7,#edf5f0); }
+.portal-number { font-size:.7rem; letter-spacing:.15em; margin-bottom:1.3rem; color:var(--color-muted); }
+.portal h2 { font-size:clamp(1.4rem,2.5vw,1.85rem); font-weight:650; }
+.portal p { margin-top:.75rem; font-size:.95rem; padding-right:1.5rem; }
+.portal-arrow { align-self:flex-end; margin-top:auto; font-size:1.6rem; }
+.portal:hover { border-color:var(--color-accent); outline:1px solid var(--color-accent); outline-offset:-6px; }
+.archive-crosslinks { display:flex; flex-wrap:wrap; gap:1rem; margin:1.5rem 0 3rem; justify-content:center; }
+.archive-crosslinks a { padding:.4rem .6rem; border-bottom:1px solid var(--color-border); }
+@media(max-width:767px) { .portal-grid { grid-template-columns:1fr; padding-inline:.5rem; margin-top:-.6rem; } .portal { grid-column:auto; min-height:12rem; padding:1.2rem; } .portal-number { margin-bottom:.65rem; } }
+

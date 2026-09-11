@@ -1,0 +1,57 @@
+﻿/* Phase 2: scoped long-form archive layout. */
+.ebellua-page .lore-layout { display: grid; gap: 2rem; align-items: start; }
+.ebellua-page .lore-article { min-width: 0; max-width: 54rem; }
+.ebellua-page .lore-toc { min-width: 0; }
+.ebellua-page .toc-panel { border: 1px solid var(--color-border); border-radius: var(--radius); background: var(--color-surface); }
+.ebellua-page .toc-panel > summary { padding: 0.875rem 1rem; cursor: pointer; font-weight: 700; }
+.ebellua-page .toc-list { list-style: none; padding: 0 0.5rem 0.5rem; }
+.ebellua-page .toc-list a { display: block; padding: 0.5rem; border-radius: var(--radius); text-decoration: none; font-size: 0.9375rem; }
+.ebellua-page .toc-list a:hover,
+.ebellua-page .toc-list a[aria-current="location"] { background: var(--color-accent-soft); }
+.ebellua-page .toc-list a[aria-current="location"] { font-weight: 700; text-decoration: underline; }
+.ebellua-page .content-section { padding-block: 2rem; }
+.ebellua-page .content-section h2 { font-size: clamp(1.375rem, 2.2vw, 1.75rem); margin-bottom: 1rem; }
+.ebellua-page .content-section h3 { margin-top: 1.5rem; font-size: 1.125rem; }
+.ebellua-page .content-section p { max-width: 65ch; color: var(--color-text); line-height: 1.9; }
+.ebellua-page [id] { scroll-margin-top: 1.5rem; }
+.ebellua-page .section-link { display: inline-block; margin-inline-start: 0.5rem; font-size: 0.875rem; font-weight: 400; }
+.ebellua-page .lore-list { margin-top: 1rem; padding-inline-start: 1.5rem; }
+.ebellua-page .lore-list li + li { margin-top: 0.625rem; }
+.ebellua-page .lore-terms { margin-block: 1.25rem 0; }
+.ebellua-page .lore-terms > div { padding-block: 1rem; border-bottom: 1px solid var(--color-border); }
+.ebellua-page .lore-terms dt { font-weight: 700; }
+.ebellua-page .lore-terms dd { margin: 0.375rem 0 0; line-height: 1.9; }
+.ebellua-page .lore-note { margin-top: 1.25rem; padding: 1rem 1.25rem; border-inline-start: 3px solid var(--color-accent); background: var(--color-accent-soft); }
+.ebellua-page .era-timeline { list-style: none; margin-top: 1.5rem; padding-inline-start: 1.5rem; border-inline-start: 2px solid var(--color-border); }
+.ebellua-page .era-timeline > li { position: relative; padding: 0 0 1.75rem 0.25rem; }
+.ebellua-page .era-timeline > li:last-child { padding-bottom: 0; }
+.ebellua-page .era-timeline > li::before { content: ""; position: absolute; inset-inline-start: -1.9375rem; inset-block-start: 0.4rem; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--color-accent); border: 2px solid var(--color-background); }
+.ebellua-page .era-timeline h3 { margin-top: 0.25rem; }
+.ebellua-page .era-label { color: var(--color-muted); font-size: 0.875rem; font-weight: 700; }
+.ebellua-page .lore-disclosure { margin-top: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius); background: var(--color-surface); }
+.ebellua-page .lore-disclosure > summary { padding: 1rem; font-weight: 700; cursor: pointer; }
+.ebellua-page .lore-disclosure > summary:hover { background: var(--color-accent-soft); }
+.ebellua-page .lore-disclosure[open] > summary { border-bottom: 1px solid var(--color-border); }
+.ebellua-page .disclosure-body { padding: 0.5rem 1rem 1rem; }
+.ebellua-page .related-links { display: flex; flex-wrap: wrap; gap: 0.75rem; list-style: none; padding: 0; margin-top: 1rem; }
+.ebellua-page .back-to-top { margin-top: 1rem; }
+@media (min-width: 1200px) {
+  .ebellua-page .lore-layout { grid-template-columns: 15rem minmax(0, 1fr); gap: 3rem; }
+  .ebellua-page .lore-toc { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; scrollbar-gutter: stable; }
+}
+@media (max-width: 767px) {
+  .ebellua-page .content-section { padding-block: 1.5rem; }
+  .ebellua-page .lore-layout { gap: 1.5rem; }
+}
+
+/* Phase 7: visual and accessibility polish. */
+body { --page-glow:#e5dfd4; --color-accent:#594832; }
+.ebellua-page .toc-panel { box-shadow:var(--shadow-soft); }
+.ebellua-page .era-timeline { border-color:var(--color-accent); }
+.ebellua-page .era-timeline > li::before { box-shadow:0 0 0 4px var(--color-accent-soft); }
+.ebellua-page .lore-note { border-radius:0 var(--radius) var(--radius) 0; }
+
+
+/* Phase 7.5: archive identity. */
+.ebellua-page .toc-panel,.ebellua-page .lore-disclosure { border-radius:0; box-shadow:none; border-style:double; }
+.ebellua-page .lore-note { border-radius:0; }

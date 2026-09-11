@@ -1,0 +1,4 @@
+/* Reuse the academy reading layout. */
+@import url("./introduce-BeliaAcademy.css");
+.academy-page details ul { columns:2 19rem; }
+.academy-page details li { break-inside:avoid; }
