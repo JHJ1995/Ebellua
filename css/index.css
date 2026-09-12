@@ -42,3 +42,177 @@ main > .content-section .link-list a { display:inline-block; padding:.8rem 1rem;
 .archive-crosslinks a { padding:.4rem .6rem; border-bottom:1px solid var(--color-border); }
 @media(max-width:767px) { .portal-grid { grid-template-columns:1fr; padding-inline:.5rem; margin-top:-.6rem; } .portal { grid-column:auto; min-height:12rem; padding:1.2rem; } .portal-number { margin-bottom:.65rem; } }
 
+
+/* Phase 7.6: archive continuity polish.
+   The homepage portal composition is already the visual benchmark,
+   so only quick access + map presentation are refined. */
+
+.portal-home .archive-crosslinks {
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  margin: 1.7rem 0 3.1rem;
+  padding: .75rem 0;
+  border-top: 3px double var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.portal-home .crosslink-label {
+  flex: 0 0 100%;
+  margin-bottom: .45rem;
+  color: var(--color-muted);
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.portal-home .archive-crosslinks a {
+  position: relative;
+  padding: .55rem 1rem .55rem 1.25rem;
+  border: 0;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.portal-home .archive-crosslinks a::before {
+  content: "◇";
+  position: absolute;
+  inset-inline-start: .35rem;
+  color: var(--color-accent);
+  font-size: .55rem;
+}
+
+.portal-home .archive-crosslinks a + a {
+  border-inline-start: 1px solid var(--color-border);
+}
+
+.portal-home .archive-crosslinks a:hover,
+.portal-home .archive-crosslinks a:focus-visible {
+  color: var(--color-accent);
+}
+
+.portal-home .archive-crosslinks a:hover::before {
+  content: "◆";
+}
+
+/* Map becomes an archival plate rather than a generic content card. */
+.portal-home .map-record {
+  position: relative;
+  padding-block: 2.6rem 3rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.portal-home .map-record::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: -1px;
+  width: 3.4rem;
+  height: 2px;
+  background: var(--color-accent);
+}
+
+.portal-home .section-kicker {
+  margin: 0 0 .5rem;
+  color: var(--color-muted);
+  font-size: .64rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+
+.portal-home .map-record > h2 {
+  display: flex;
+  align-items: baseline;
+  gap: .55rem;
+  margin-bottom: 1.1rem;
+}
+
+.portal-home .map-record > h2::before {
+  content: "◇";
+  color: var(--color-accent);
+  font-size: .6em;
+}
+
+.portal-home .world-map {
+  margin: 0;
+  border: 0;
+  border-top: 3px double var(--color-border);
+  border-bottom: 3px double var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.portal-home .world-map > a {
+  position: relative;
+  display: block;
+  padding: 1rem 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.portal-home .world-map img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  background: var(--color-surface);
+}
+
+.portal-home .world-map > a > span {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .75rem;
+  padding-bottom: .2rem;
+  padding-left: 20px;
+  border-bottom: none;
+  color: var(--color-muted);
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.portal-home .world-map > a > span::before {
+  content: "◇";
+  color: var(--color-accent);
+  font-size: .55rem;
+}
+
+.portal-home .world-map > a:hover > span {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+.portal-home .world-map figcaption {
+  padding: .85rem 0 1rem;
+  padding-left: 10px;
+  color: var(--color-muted);
+  font-size: .84rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.portal-home .entry-skip {
+  border-radius: 0;
+}
+
+@media (max-width: 767px) {
+  .portal-home .archive-crosslinks {
+    align-items: stretch;
+  }
+
+  .portal-home .archive-crosslinks a {
+    flex: 1 1 50%;
+    min-width: 10rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .portal-home .archive-crosslinks a + a {
+    border-inline-start: 0;
+  }
+
+  .portal-home .map-record {
+    padding-block: 2rem 2.4rem;
+  }
+}
