@@ -1,4 +1,43 @@
-/* Reuse the academy reading layout. */
+/* Reuse the academy dossier design. */
 @import url("./introduce-BeliaAcademy.css");
-.academy-page details ul { columns:2 19rem; }
-.academy-page details li { break-inside:avoid; }
+
+/* 학부 7개 + 공통교육 + 협동교육 = 9개 */
+.academy-page .academy-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* 수업 목록 */
+.academy-page details .link-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+}
+
+.academy-page details .link-list li {
+    position: relative;
+    padding: .7rem .7rem .7rem 1.35rem;
+    border-bottom: 1px solid var(--academy-line);
+    break-inside: avoid;
+}
+
+.academy-page details .link-list li::before {
+    content: "◇";
+    position: absolute;
+    left: .35rem;
+    color: var(--academy-gold);
+    font-size: .55rem;
+}
+
+@media (max-width: 900px) {
+    .academy-page .academy-nav,
+    .academy-page details .link-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .academy-page .academy-nav,
+    .academy-page details .link-list {
+        grid-template-columns: 1fr;
+    }
+}

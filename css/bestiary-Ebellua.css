@@ -1,11 +1,622 @@
 @import url('./characters.css');
-body { --color-background:#f1f0e7; --color-accent:#4b6045; --color-accent-soft:#e0e4d5; --color-border:#c4c9b7; --page-glow:#dce0ce; }
-.field-note { margin-block:1rem; max-width:78ch; padding:.75rem 1rem; border-left:3px solid var(--color-accent); background:var(--color-accent-soft); font-size:.9rem; }
-.bestiary-page .field-card { border-radius:0; background:#e6e9dc; border-top:3px double var(--color-accent); }
-.bestiary-page .character-portrait { aspect-ratio:4/3; background:radial-gradient(ellipse,#f4f4eb,#c5ccb9); object-fit:contain; }
-.bestiary-page .character-card-body { background:repeating-linear-gradient(0deg,transparent,transparent 31px,#66775b0b 32px),#eef0e5; }
-.bestiary-page .character-meta { border-bottom:1px solid var(--color-border); padding-bottom:.5rem; }
-.bestiary-page .modal-copy h3 { font-size:1rem; border-bottom:1px solid var(--color-border); padding-bottom:.4rem; }
-.phase-images { display:grid; gap:1rem; }
-.phase-images figure { margin:0; }
-.phase-images figcaption { font-size:.85rem; margin-top:.4rem; }
+
+/* =========================================================
+   Ebellua Bestiary — Field Guide / Specimen Archive
+   Visual-only overrides. bestiary.js is intentionally untouched.
+   ========================================================= */
+
+body {
+  --color-background: #f1f0e7;
+  --color-accent: #4b6045;
+  --color-accent-soft: #e0e4d5;
+  --color-border: #c4c9b7;
+  --page-glow: #dce0ce;
+
+  --field-ink: #34412f;
+  --field-muted: #66705e;
+  --field-line: #c4c9b7;
+  --field-line-strong: #7d8b72;
+  --field-paper: #eef0e5;
+  --field-wash: rgba(75, 96, 69, .075);
+  --field-danger: #73564b;
+}
+
+/* ─────────────────────────────────────────────
+   Page heading — naturalist field archive
+   ───────────────────────────────────────────── */
+
+.bestiary-page .page-heading {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-block: 3px double var(--field-line-strong);
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    radial-gradient(ellipse at 100% 0, rgba(224,228,213,.92), transparent 56%),
+    linear-gradient(105deg, rgba(238,240,229,.92), transparent 78%);
+  padding-inline: clamp(1rem, 3vw, 1.75rem);
+}
+
+.bestiary-page .page-heading::after {
+  content: "FIELD GUIDE";
+  position: absolute;
+  inset-inline-end: clamp(1rem, 3vw, 2rem);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  color: rgba(75,96,69,.16);
+  font-size: clamp(.62rem, 1.1vw, .86rem);
+  font-weight: 900;
+  letter-spacing: .22em;
+  pointer-events: none;
+}
+
+.bestiary-page .page-heading .eyebrow {
+  margin: 0 0 .55rem;
+  color: var(--field-muted);
+  font-size: .67rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.bestiary-page .page-heading h1 {
+  color: var(--field-ink);
+  letter-spacing: -.04em;
+}
+
+/* ─────────────────────────────────────────────
+   Search / filter — field archive retrieval desk
+   ───────────────────────────────────────────── */
+
+.bestiary-page .directory-controls {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0 2.3rem;
+  padding: 1.15rem 0 1.25rem;
+  border: 0;
+  border-top: 3px double var(--field-line-strong);
+  border-bottom: 1px solid var(--field-line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.bestiary-page .directory-controls::before {
+  content: "FIELD INDEX / SEARCH";
+  display: block;
+  color: var(--field-muted);
+  font-size: .61rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.bestiary-page .search-field,
+.bestiary-page .directory-filters label {
+  color: var(--field-muted);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
+.bestiary-page .search-field input,
+.bestiary-page .directory-filters select {
+  width: 100%;
+  min-height: 2.8rem;
+  margin-top: .4rem;
+  padding: .58rem .7rem;
+  border: 0;
+  border-bottom: 1px solid var(--field-line-strong);
+  border-radius: 0;
+  color: var(--color-text);
+  background:
+    linear-gradient(180deg, transparent, rgba(75,96,69,.035));
+  box-shadow: none;
+}
+
+.bestiary-page .search-field input:focus,
+.bestiary-page .directory-filters select:focus {
+  border-bottom-color: var(--color-accent);
+  outline-offset: 3px;
+}
+
+.bestiary-page .directory-filters {
+  display: grid;
+  gap: .8rem;
+}
+
+.bestiary-page .directory-controls > .button {
+  justify-self: start;
+  min-height: 2.55rem;
+  padding: .45rem .85rem;
+  border: 1px solid var(--field-line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--field-ink);
+  box-shadow: none;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
+.bestiary-page .directory-controls > .button:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  box-shadow: none;
+}
+
+/* ─────────────────────────────────────────────
+   Directory title / status
+   ───────────────────────────────────────────── */
+
+.bestiary-page #character-directory {
+  position: relative;
+}
+
+.bestiary-page #directory-heading {
+  display: flex;
+  align-items: baseline;
+  gap: .65rem;
+  margin-bottom: .35rem;
+  color: var(--field-ink);
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+}
+
+.bestiary-page #directory-heading::before {
+  content: "◇";
+  color: var(--color-accent);
+  font-size: .68em;
+}
+
+.bestiary-page #result-count {
+  margin-top: .3rem;
+  color: var(--field-muted);
+  font-size: .84rem;
+  letter-spacing: .03em;
+}
+
+.bestiary-page #empty-result {
+  margin-top: 1rem;
+  padding: 1rem 0 1rem 1rem;
+  border-inline-start: 3px solid var(--color-accent);
+  background: linear-gradient(90deg, var(--field-wash), transparent 80%);
+}
+
+/* ─────────────────────────────────────────────
+   Specimen grid
+   ───────────────────────────────────────────── */
+
+.bestiary-page .character-grid {
+  counter-reset: specimen-record;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.15rem;
+  margin-top: 1.35rem;
+  align-items: start;
+}
+
+.bestiary-page .field-card {
+  counter-increment: specimen-record;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--field-line);
+  border-top: 3px double var(--field-line-strong);
+  border-radius: 0;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.38), rgba(75,96,69,.025)),
+    var(--field-paper);
+  box-shadow: none;
+  transition:
+    transform .16s ease,
+    border-color .16s ease,
+    background-color .16s ease;
+}
+
+.bestiary-page .field-card::before {
+  content: "SPECIMEN " counter(specimen-record, decimal-leading-zero);
+  position: absolute;
+  z-index: 2;
+  inset-inline-end: .72rem;
+  inset-block-start: .55rem;
+  color: rgba(52,65,47,.42);
+  font-size: .56rem;
+  font-weight: 900;
+  letter-spacing: .13em;
+  pointer-events: none;
+}
+
+.bestiary-page .field-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--field-line-strong);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.56), rgba(75,96,69,.045)),
+    var(--field-paper);
+}
+
+/* Image behaves like a mounted specimen plate, not a character portrait. */
+.bestiary-page .character-portrait {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  padding: .7rem;
+  border: 0;
+  border-bottom: 1px solid var(--field-line);
+  border-radius: 0;
+  background:
+    radial-gradient(ellipse at center, #f7f6ed 0%, #e5e8dc 72%, #d8ddce 100%);
+}
+
+.bestiary-page .character-card-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 14rem;
+  padding: 1rem 1.05rem 1.05rem;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      rgba(75,96,69,.035) 32px
+    ),
+    transparent;
+}
+
+.bestiary-page .character-card-body h3 {
+  margin: 0;
+  padding-inline-end: 5.4rem;
+  color: var(--field-ink);
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.bestiary-page .character-card-body h3::before {
+  content: "◆";
+  margin-inline-end: .4rem;
+  color: var(--color-accent);
+  font-size: .48rem;
+  vertical-align: .15em;
+}
+
+.bestiary-page .character-meta {
+  margin-top: .55rem;
+  padding-bottom: .7rem;
+  border-bottom: 1px solid var(--field-line);
+  color: var(--color-accent);
+  font-size: .76rem;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.bestiary-page .character-summary {
+  margin-top: .8rem;
+  color: var(--field-muted);
+  font-size: .9rem;
+  line-height: 1.75;
+}
+
+.bestiary-page .character-card-body > .button {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: .45rem .15rem .3rem;
+  min-height: 2.2rem;
+  border: 0;
+  border-bottom: 1px solid var(--field-line-strong);
+  border-radius: 0;
+  color: var(--field-ink);
+  background: transparent;
+  box-shadow: none;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.bestiary-page .character-card-body > .button::before {
+  content: "◇";
+  margin-inline-end: .4rem;
+  color: var(--color-accent);
+  font-size: .52rem;
+}
+
+.bestiary-page .character-card-body > .button::after {
+  content: " →";
+  color: var(--field-muted);
+}
+
+.bestiary-page .character-card-body > .button:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  background: transparent;
+}
+
+/* Optional note style retained for any future field-note markup. */
+.bestiary-page .field-note {
+  margin-block: 1rem;
+  max-width: 78ch;
+  padding: .8rem 1rem;
+  border: 0;
+  border-inline-start: 3px solid var(--color-accent);
+  background: linear-gradient(90deg, var(--field-wash), transparent 82%);
+  color: var(--field-muted);
+  font-size: .9rem;
+}
+
+/* ─────────────────────────────────────────────
+   Modal — specimen dossier
+   ───────────────────────────────────────────── */
+
+.bestiary-page .character-modal {
+  width: min(68rem, calc(100% - 2rem));
+  max-height: min(90vh, 60rem);
+  padding: 0;
+  border: 1px solid var(--field-line-strong);
+  border-top: 4px double var(--color-accent);
+  border-radius: 0;
+  color: var(--color-text);
+  background:
+    linear-gradient(145deg, #f7f7ef, #edf0e5);
+  box-shadow: 0 24px 70px rgb(35 42 30 / .30);
+}
+
+.bestiary-page .character-modal::backdrop {
+  background: rgba(25, 31, 22, .68);
+  backdrop-filter: blur(2px);
+}
+
+.bestiary-page .modal-toolbar {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: .65rem .8rem;
+  border-bottom: 1px solid var(--field-line);
+  background: rgba(244, 246, 236, .94);
+  backdrop-filter: blur(7px);
+}
+
+.bestiary-page .modal-toolbar .button {
+  min-height: 2.3rem;
+  padding: .38rem .7rem;
+  border: 0;
+  border-bottom: 1px solid var(--field-line-strong);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--field-ink);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.bestiary-page .modal-toolbar .button::before {
+  content: "×";
+  margin-inline-end: .35rem;
+  color: var(--color-accent);
+}
+
+.bestiary-page .modal-content {
+  display: grid;
+  gap: 0;
+  align-items: start;
+}
+
+.bestiary-page .modal-content > .character-portrait {
+  width: 100%;
+  height: auto;
+  max-height: 45rem;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  padding: 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--field-line);
+  background:
+    radial-gradient(ellipse at center, #f8f7ee 0%, #e4e8da 72%, #d4dacb 100%);
+}
+
+.bestiary-page .modal-copy {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.bestiary-page .modal-copy::before {
+  content: "SPECIMEN DOSSIER";
+  display: block;
+  margin-bottom: .55rem;
+  color: var(--field-muted);
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.bestiary-page .modal-copy h2 {
+  margin: 0 0 1.25rem;
+  padding-bottom: .85rem;
+  border-bottom: 3px double var(--field-line-strong);
+  color: var(--field-ink);
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  letter-spacing: -.035em;
+}
+
+.bestiary-page .modal-copy h2::before {
+  content: "◆";
+  margin-inline-end: .55rem;
+  color: var(--color-accent);
+  font-size: .48em;
+  vertical-align: .12em;
+}
+
+.bestiary-page .modal-facts {
+  display: grid;
+  grid-template-columns: minmax(5.2rem, auto) minmax(0, 1fr);
+  gap: 0;
+  margin: 0 0 1.35rem;
+  border-top: 1px solid var(--field-line);
+}
+
+.bestiary-page .modal-facts dt,
+.bestiary-page .modal-facts dd {
+  margin: 0;
+  padding: .6rem .4rem;
+  border-bottom: 1px solid var(--field-line);
+}
+
+.bestiary-page .modal-facts dt {
+  color: var(--field-muted);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.bestiary-page .modal-facts dd {
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+/* The JS appends h3 + p pairs for appearance/traits/damage/attack pattern. */
+.bestiary-page .modal-copy h3 {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 1.35rem 0 0;
+  padding: 0 0 .45rem;
+  border-bottom: 1px solid var(--field-line);
+  color: var(--field-ink);
+  font-size: .94rem;
+  letter-spacing: .01em;
+}
+
+.bestiary-page .modal-copy h3::before {
+  content: "◇";
+  color: var(--color-accent);
+  font-size: .55rem;
+}
+
+.bestiary-page .modal-copy h3 + p {
+  margin-top: .7rem;
+  color: var(--color-text);
+  line-height: 1.9;
+}
+
+/* Slightly stronger warning feel for the damage section, without JS changes. */
+.bestiary-page .modal-copy h3:nth-of-type(4) {
+  color: var(--field-danger);
+}
+
+.bestiary-page .phase-images {
+  display: grid;
+  gap: 1rem;
+  margin-top: .85rem;
+}
+
+.bestiary-page .phase-images figure {
+  margin: 0;
+  padding: .75rem;
+  border: 1px solid var(--field-line);
+  border-top: 3px double var(--field-line-strong);
+  background: rgba(255,255,255,.36);
+}
+
+.bestiary-page .phase-images .character-portrait {
+  aspect-ratio: 4 / 3;
+  padding: .35rem;
+  border: 0;
+  background:
+    radial-gradient(ellipse at center, #f7f6ed, #dfe4d6);
+}
+
+.bestiary-page .phase-images figcaption {
+  margin-top: .55rem;
+  color: var(--field-muted);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────── */
+
+@media (min-width: 560px) {
+  .bestiary-page .directory-controls {
+    grid-template-columns: minmax(14rem, 1.4fr) minmax(14rem, 1.25fr) auto;
+    align-items: end;
+  }
+
+  .bestiary-page .directory-controls::before {
+    grid-column: 1 / -1;
+  }
+
+  .bestiary-page .directory-filters {
+    grid-template-columns: repeat(2, minmax(9rem, 1fr));
+  }
+
+  .bestiary-page .character-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .bestiary-page .character-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .bestiary-page .modal-content {
+    grid-template-columns: minmax(20rem, .95fr) minmax(0, 1.3fr);
+  }
+
+  .bestiary-page .modal-content > .character-portrait {
+    position: sticky;
+    top: 3.65rem;
+    border-right: 1px solid var(--field-line);
+    border-bottom: 0;
+  }
+
+  .bestiary-page .phase-images {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .bestiary-page .character-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 559px) {
+  .bestiary-page .page-heading::after {
+    display: none;
+  }
+
+  .bestiary-page .page-heading {
+    padding-inline: 1rem;
+  }
+
+  .bestiary-page .directory-controls {
+    gap: .85rem;
+  }
+
+  .bestiary-page .directory-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .bestiary-page .character-card-body {
+    min-height: 0;
+  }
+
+  .bestiary-page .character-modal {
+    width: calc(100% - 1rem);
+    max-height: 92vh;
+  }
+
+  .bestiary-page .modal-facts {
+    grid-template-columns: 4.7rem minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bestiary-page .field-card {
+    transition: none;
+  }
+}

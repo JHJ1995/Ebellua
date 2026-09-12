@@ -1,6 +1,555 @@
-/* Shared character directory styles, scoped to the two directories. */
+/* Shared character directory styles. */
 @import url("./characters.css");
 
-/* Phase 7: visual and accessibility polish. */
-body { --color-background:#f2f6f3; --color-accent:#32635b; --color-accent-soft:#e1ede7; --color-border:#c8d6cf; --page-glow:#dfece6; --color-muted:#53625b; }
+/* =========================================================
+   Bellia Academy Characters — Academy Roster / Student Dossier
+   Visual-only overrides. character-filter.js remains untouched.
+   ========================================================= */
 
+body {
+  --color-background: #f2f6f3;
+  --color-surface: #fbfdfb;
+  --color-accent: #32635b;
+  --color-accent-soft: #e1ede7;
+  --color-border: #c8d6cf;
+  --page-glow: #dfece6;
+  --color-muted: #53625b;
+
+  --academy-ink: #294b45;
+  --academy-muted: #53625b;
+  --academy-line: #c8d6cf;
+  --academy-line-strong: #7f9b90;
+  --academy-paper: rgba(255,255,255,.44);
+  --academy-wash: rgba(50,99,91,.065);
+  --academy-gold: #9b7f49;
+}
+
+/* ─────────────────────────────────────────────
+   Page heading — academy registry
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="belia"] .page-heading {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-block: 3px double var(--academy-line-strong);
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    linear-gradient(105deg, rgba(225,237,231,.95), transparent 74%);
+  padding-inline: clamp(1rem, 3vw, 1.75rem);
+}
+
+.character-page[data-directory="belia"] .page-heading::after {
+  content: "ACADEMY ROSTER";
+  position: absolute;
+  inset-inline-end: clamp(1rem, 3vw, 2rem);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  color: rgba(50,99,91,.16);
+  font-size: clamp(.62rem, 1.1vw, .86rem);
+  font-weight: 900;
+  letter-spacing: .2em;
+  pointer-events: none;
+}
+
+.character-page[data-directory="belia"] .page-heading .eyebrow {
+  margin: 0 0 .55rem;
+  color: var(--academy-muted);
+  font-size: .67rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.character-page[data-directory="belia"] .page-heading h1 {
+  color: var(--academy-ink);
+  letter-spacing: -.04em;
+}
+
+/* ─────────────────────────────────────────────
+   Search / filter — admissions & roster desk
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="belia"] .directory-controls {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0 2.3rem;
+  padding: 1.15rem 0 1.25rem;
+  border: 0;
+  border-top: 3px double var(--academy-line-strong);
+  border-bottom: 1px solid var(--academy-line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.character-page[data-directory="belia"] .directory-controls::before {
+  content: "ROSTER SEARCH / FILTER";
+  display: block;
+  color: var(--academy-muted);
+  font-size: .61rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.character-page[data-directory="belia"] .search-field,
+.character-page[data-directory="belia"] .directory-filters label {
+  color: var(--academy-muted);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
+.character-page[data-directory="belia"] .search-field input,
+.character-page[data-directory="belia"] .directory-filters select {
+  width: 100%;
+  min-height: 2.8rem;
+  margin-top: .4rem;
+  padding: .58rem .7rem;
+  border: 0;
+  border-bottom: 1px solid var(--academy-line-strong);
+  border-radius: 0;
+  color: var(--color-text);
+  background:
+    linear-gradient(180deg, transparent, rgba(50,99,91,.03));
+  box-shadow: none;
+}
+
+.character-page[data-directory="belia"] .search-field input:focus,
+.character-page[data-directory="belia"] .directory-filters select:focus {
+  border-bottom-color: var(--color-accent);
+  outline-offset: 3px;
+}
+
+.character-page[data-directory="belia"] .directory-filters {
+  display: grid;
+  gap: .8rem;
+}
+
+.character-page[data-directory="belia"] .directory-controls > .button {
+  justify-self: start;
+  min-height: 2.55rem;
+  padding: .45rem .85rem;
+  border: 1px solid var(--academy-line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--academy-ink);
+  box-shadow: none;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
+.character-page[data-directory="belia"] .directory-controls > .button:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  box-shadow: none;
+}
+
+/* ─────────────────────────────────────────────
+   Directory heading / result count
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="belia"] #character-directory {
+  position: relative;
+}
+
+.character-page[data-directory="belia"] #directory-heading {
+  display: flex;
+  align-items: baseline;
+  gap: .65rem;
+  margin-bottom: .35rem;
+  color: var(--academy-ink);
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+}
+
+.character-page[data-directory="belia"] #directory-heading::before {
+  content: "◇";
+  color: var(--academy-gold);
+  font-size: .68em;
+}
+
+.character-page[data-directory="belia"] #result-count {
+  margin-top: .3rem;
+  color: var(--academy-muted);
+  font-size: .84rem;
+  letter-spacing: .03em;
+}
+
+.character-page[data-directory="belia"] #empty-result {
+  margin-top: 1rem;
+  padding: 1rem 0 1rem 1rem;
+  border-inline-start: 3px solid var(--color-accent);
+  background: linear-gradient(90deg, var(--academy-wash), transparent 80%);
+}
+
+/* ─────────────────────────────────────────────
+   Character grid — academy file cards
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="belia"] .character-grid {
+  counter-reset: bellia-record;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.15rem;
+  margin-top: 1.35rem;
+  align-items: start;
+}
+
+.character-page[data-directory="belia"] .character-card {
+  counter-increment: bellia-record;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--academy-line);
+  border-top: 3px double var(--academy-line-strong);
+  border-radius: 0;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.48), rgba(50,99,91,.025));
+  box-shadow: none;
+  transition:
+    transform .16s ease,
+    border-color .16s ease,
+    background-color .16s ease;
+}
+
+.character-page[data-directory="belia"] .character-card::before {
+  content: "FILE " counter(bellia-record, decimal-leading-zero);
+  position: absolute;
+  z-index: 2;
+  inset-inline-end: .72rem;
+  inset-block-start: .55rem;
+  color: rgba(41,75,69,.38);
+  font-size: .56rem;
+  font-weight: 900;
+  letter-spacing: .13em;
+  pointer-events: none;
+}
+
+.character-page[data-directory="belia"] .character-card::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  width: 3.1rem;
+  height: 3px;
+  background: var(--academy-gold);
+  opacity: .68;
+}
+
+.character-page[data-directory="belia"] .character-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--academy-line-strong);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.66), rgba(50,99,91,.045));
+}
+
+.character-page[data-directory="belia"] .character-portrait {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  border: 0;
+  border-bottom: 1px solid var(--academy-line);
+  border-radius: 0;
+  background: var(--color-accent-soft);
+}
+
+.character-page[data-directory="belia"] .character-card-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 15rem;
+  padding: 1rem 1.05rem 1.05rem;
+}
+
+.character-page[data-directory="belia"] .character-card-body h3 {
+  margin: 0;
+  padding-inline-end: 3.9rem;
+  color: var(--academy-ink);
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.character-page[data-directory="belia"] .character-card-body h3::before {
+  content: "◆";
+  margin-inline-end: .4rem;
+  color: var(--academy-gold);
+  font-size: .48rem;
+  vertical-align: .15em;
+}
+
+.character-page[data-directory="belia"] .character-meta {
+  margin-top: .55rem;
+  padding-bottom: .7rem;
+  border-bottom: 1px solid var(--academy-line);
+  color: var(--color-accent);
+  font-size: .76rem;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.character-page[data-directory="belia"] .character-summary {
+  margin-top: .8rem;
+  color: var(--academy-muted);
+  font-size: .9rem;
+  line-height: 1.75;
+}
+
+.character-page[data-directory="belia"] .character-card-body > .button {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: .45rem .15rem .3rem;
+  min-height: 2.2rem;
+  border: 0;
+  border-bottom: 1px solid var(--academy-line-strong);
+  border-radius: 0;
+  color: var(--academy-ink);
+  background: transparent;
+  box-shadow: none;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.character-page[data-directory="belia"] .character-card-body > .button::before {
+  content: "◇";
+  margin-inline-end: .4rem;
+  color: var(--academy-gold);
+  font-size: .52rem;
+}
+
+.character-page[data-directory="belia"] .character-card-body > .button::after {
+  content: " →";
+  color: var(--academy-muted);
+}
+
+.character-page[data-directory="belia"] .character-card-body > .button:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  background: transparent;
+}
+
+/* ─────────────────────────────────────────────
+   Modal — academy dossier
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="belia"] .character-modal {
+  width: min(66rem, calc(100% - 2rem));
+  max-height: min(88vh, 58rem);
+  padding: 0;
+  border: 1px solid var(--academy-line-strong);
+  border-top: 4px double var(--color-accent);
+  border-radius: 0;
+  color: var(--color-text);
+  background:
+    linear-gradient(145deg, #fbfaf7, #edf4f0);
+  box-shadow: 0 24px 70px rgb(30 38 48 / .28);
+}
+
+.character-page[data-directory="belia"] .character-modal::backdrop {
+  background: rgba(25,38,34,.66);
+  backdrop-filter: blur(2px);
+}
+
+.character-page[data-directory="belia"] .modal-toolbar {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: .65rem .8rem;
+  border-bottom: 1px solid var(--academy-line);
+  background: rgba(247,248,249,.94);
+  backdrop-filter: blur(7px);
+}
+
+.character-page[data-directory="belia"] .modal-toolbar .button {
+  min-height: 2.3rem;
+  padding: .38rem .7rem;
+  border: 0;
+  border-bottom: 1px solid var(--academy-line-strong);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--academy-ink);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.character-page[data-directory="belia"] .modal-toolbar .button::before {
+  content: "×";
+  margin-inline-end: .35rem;
+  color: var(--color-accent);
+}
+
+.character-page[data-directory="belia"] .modal-content {
+  display: grid;
+  gap: 0;
+  align-items: start;
+}
+
+.character-page[data-directory="belia"] .modal-content > .character-portrait {
+  width: 100%;
+  height: auto;
+  max-height: 65dvh;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  border: 0;
+  border-bottom: 1px solid var(--academy-line);
+}
+
+.character-page[data-directory="belia"] .modal-copy {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.character-page[data-directory="belia"] .modal-copy::before {
+  content: "ACADEMY DOSSIER";
+  display: block;
+  margin-bottom: .55rem;
+  color: var(--academy-muted);
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.character-page[data-directory="belia"] .modal-copy h2 {
+  margin: 0 0 1.25rem;
+  padding-bottom: .85rem;
+  border-bottom: 3px double var(--academy-line-strong);
+  color: var(--academy-ink);
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  letter-spacing: -.035em;
+}
+
+.character-page[data-directory="belia"] .modal-copy h2::before {
+  content: "◆";
+  margin-inline-end: .55rem;
+  color: var(--academy-gold);
+  font-size: .48em;
+  vertical-align: .12em;
+}
+
+.character-page[data-directory="belia"] .modal-facts {
+  display: grid;
+  grid-template-columns: minmax(5.2rem, auto) minmax(0, 1fr);
+  gap: 0;
+  margin: 0 0 1.3rem;
+  border-top: 1px solid var(--academy-line);
+}
+
+.character-page[data-directory="belia"] .modal-facts dt,
+.character-page[data-directory="belia"] .modal-facts dd {
+  margin: 0;
+  padding: .6rem .4rem;
+  border-bottom: 1px solid var(--academy-line);
+}
+
+.character-page[data-directory="belia"] .modal-facts dt {
+  color: var(--academy-muted);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.character-page[data-directory="belia"] .modal-facts dd {
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+.character-page[data-directory="belia"] .modal-copy > p {
+  margin-top: 1rem;
+  color: var(--color-text);
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+.character-page[data-directory="belia"] .modal-copy > p + p {
+  padding-top: 1rem;
+  border-top: 1px solid var(--academy-line);
+}
+
+/* ─────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────── */
+
+@media (min-width: 560px) {
+  .character-page[data-directory="belia"] .directory-controls {
+    grid-template-columns: minmax(14rem, 1.35fr) minmax(18rem, 1.65fr) auto;
+    align-items: end;
+  }
+
+  .character-page[data-directory="belia"] .directory-controls::before {
+    grid-column: 1 / -1;
+  }
+
+  .character-page[data-directory="belia"] .directory-filters {
+    grid-template-columns: repeat(3, minmax(8rem, 1fr));
+  }
+
+  .character-page[data-directory="belia"] .character-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .character-page[data-directory="belia"] .character-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .character-page[data-directory="belia"] .modal-content {
+    grid-template-columns: minmax(18rem, .85fr) minmax(0, 1.35fr);
+  }
+
+  .character-page[data-directory="belia"] .modal-content > .character-portrait {
+    position: sticky;
+    top: 3.65rem;
+    border-right: 1px solid var(--academy-line);
+    border-bottom: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .character-page[data-directory="belia"] .character-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 559px) {
+  .character-page[data-directory="belia"] .page-heading::after {
+    display: none;
+  }
+
+  .character-page[data-directory="belia"] .page-heading {
+    padding-inline: 1rem;
+  }
+
+  .character-page[data-directory="belia"] .directory-controls {
+    gap: .85rem;
+  }
+
+  .character-page[data-directory="belia"] .directory-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .character-page[data-directory="belia"] .character-card-body {
+    min-height: 0;
+  }
+
+  .character-page[data-directory="belia"] .character-modal {
+    width: calc(100% - 1rem);
+    max-height: 92vh;
+  }
+
+  .character-page[data-directory="belia"] .modal-facts {
+    grid-template-columns: 4.7rem minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .character-page[data-directory="belia"] .character-card {
+    transition: none;
+  }
+}
