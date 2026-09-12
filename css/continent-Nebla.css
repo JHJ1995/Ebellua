@@ -1,10 +1,501 @@
-/* Page-specific styles are reserved for a later phase. */
+/* Nebla — Restricted / Blockade Archive
+   Page-specific visual language only.
+   common.css / continents.css behavior is preserved. */
 
-/* Phase 7: visual and accessibility polish. */
-body { --color-background:#f0eef1; --color-surface:#faf9fb; --color-accent:#594765; --color-accent-soft:#e4dde8; --color-border:#cbc4cf; --page-glow:#d6cfde; --color-text:#2c2730; --color-muted:#625967; }
-.continent-page .page-heading { border-top-style:double; border-top-width:5px; }
+body {
+  --color-background: #f0eef1;
+  --color-surface: #faf9fb;
+  --color-accent: #594765;
+  --color-accent-soft: #e4dde8;
+  --color-border: #cbc4cf;
+  --page-glow: #d6cfde;
+  --color-text: #2c2730;
+  --color-muted: #625967;
 
+  --nebla-ink: #3a2d40;
+  --nebla-line: #8d7d94;
+  --nebla-faint: rgba(89, 71, 101, 0.10);
+  --nebla-danger: #6e4652;
+  --nebla-paper: transparent;
+}
 
-/* Phase 7.5: archive identity. */
-.continent-page .region-card { border-radius:0; border-style:solid dashed; box-shadow:inset 4px 0 var(--color-border); }
-.continent-page .page-heading { background:linear-gradient(120deg,#d4cddc,#ebe7ee); }
+/* ─────────────────────────────────────────────
+   Header of the restricted record
+   ───────────────────────────────────────────── */
+
+.continent-page .page-heading {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-block: 3px double var(--color-border);
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    linear-gradient(100deg, rgba(89, 71, 101, .14), transparent 72%);
+  padding-inline: clamp(1rem, 3vw, 1.75rem);
+}
+
+.continent-page .page-heading::after {
+  content: "RESTRICTED";
+  position: absolute;
+  inset-inline-end: clamp(1rem, 3vw, 2rem);
+  inset-block-start: 50%;
+  transform: translateY(-50%) rotate(-2deg);
+  padding: .2rem .55rem;
+  border: 1px solid rgba(228, 22, 22, 0.507);
+  color: rgba(228, 22, 22, 0.507);
+  font-size: clamp(.62rem, 1.2vw, .82rem);
+  font-weight: 800;
+  letter-spacing: .18em;
+  pointer-events: none;
+}
+
+.continent-page .page-heading .eyebrow {
+  margin: 0 0 .55rem;
+  color: var(--color-muted);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.continent-page .page-heading h1 {
+  color: var(--nebla-ink);
+  letter-spacing: -.04em;
+}
+
+/* ─────────────────────────────────────────────
+   Page index — no white card, no pills
+   ───────────────────────────────────────────── */
+
+.continent-page > .nebla-index,
+.continent-page .domain-nav {
+  position: relative;
+  margin-block: 1.5rem 2rem;
+  padding: .9rem 0 1rem;
+  border: 0;
+  border-top: 3px double var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.continent-page .index-label {
+  display: block;
+  margin-bottom: .65rem;
+  color: var(--color-muted);
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.continent-page .region-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .15rem 1.1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.continent-page .region-nav li {
+  position: relative;
+}
+
+.continent-page .region-nav a {
+  position: relative;
+  min-height: 2.6rem;
+  padding: .45rem .2rem .45rem 1.1rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  transition: color .16s ease, transform .16s ease;
+}
+
+.continent-page .region-nav a::before {
+  content: "◇";
+  position: absolute;
+  inset-inline-start: 0;
+  color: var(--nebla-line);
+  font-size: .62rem;
+  background: transparent;
+}
+
+.continent-page .region-nav a:hover,
+.continent-page .region-nav a:focus-visible {
+  color: var(--color-accent);
+  transform: translateX(2px);
+}
+
+.continent-page .domain-nav {
+  margin-block: 1.1rem 1.6rem;
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+
+.continent-page .domain-nav a::before {
+  content: "✦";
+  font-size: .48rem;
+  color: var(--nebla-danger);
+}
+
+/* ─────────────────────────────────────────────
+   Top-level sections — restricted record chapters
+   ───────────────────────────────────────────── */
+
+.continent-page {
+  counter-reset: nebla-section;
+}
+
+.continent-page > .content-section {
+  counter-increment: nebla-section;
+  position: relative;
+  padding-block: 2.6rem;
+  border-top: 0;
+}
+
+.continent-page > .content-section + .content-section::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.continent-page > .content-section + .content-section::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  width: 4rem;
+  height: 2px;
+  background: var(--color-accent);
+}
+
+.continent-page > .content-section > h2 {
+  display: flex;
+  align-items: baseline;
+  gap: .7rem;
+  margin-bottom: 1.15rem;
+  color: var(--nebla-ink);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  letter-spacing: -.025em;
+}
+
+.continent-page > .content-section > h2::before {
+  content: "§ " counter(nebla-section, decimal-leading-zero);
+  color: var(--color-muted);
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  flex: 0 0 auto;
+}
+
+/* Hide empty permalink glyph space while preserving the anchor itself. */
+.continent-page .section-link {
+  width: .01px;
+  height: .01px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+}
+
+/* ─────────────────────────────────────────────
+   Definition records
+   ───────────────────────────────────────────── */
+
+.continent-page .region-facts {
+  margin-block: 1.35rem;
+  max-width: 72rem;
+  border-top: 3px double var(--color-border);
+}
+
+.continent-page .region-facts > div {
+  position: relative;
+  padding: 1rem 0 1rem 1.05rem;
+  border-bottom: 1px solid var(--color-border);
+  border-inline-start: 2px solid var(--nebla-faint);
+  max-width: none;
+}
+
+.continent-page .region-facts > div:hover {
+  border-inline-start-color: var(--color-accent);
+}
+
+.continent-page .region-facts dt {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+.continent-page .region-facts dd {
+  color: var(--color-muted);
+}
+
+/* ─────────────────────────────────────────────
+   Six domains — sealed dossier records
+   ───────────────────────────────────────────── */
+
+.continent-page .region-grid {
+  counter-reset: nebla-domain;
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+.continent-page .region-card {
+  counter-increment: nebla-domain;
+  position: relative;
+  min-width: 0;
+  padding: 1.2rem 1.2rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-top: 3px double var(--color-accent);
+  border-inline-start: 3px solid rgba(89, 71, 101, .22);
+  border-radius: 0;
+  background:
+    linear-gradient(145deg, rgba(89, 71, 101, .045), transparent 55%),
+    transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.continent-page .region-card::after {
+  content: "DOMAIN " counter(nebla-domain, decimal-leading-zero);
+  position: absolute;
+  inset-inline-end: .85rem;
+  inset-block-start: .65rem;
+  color: rgba(89, 71, 101, .22);
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  pointer-events: none;
+}
+
+.continent-page .region-card h3 {
+  max-width: 78%;
+  margin: 0 0 .7rem;
+  color: var(--nebla-ink);
+  font-size: 1.04rem;
+  line-height: 1.45;
+}
+
+.continent-page .region-card h3::before {
+  content: "◆";
+  margin-inline-end: .45rem;
+  color: var(--color-accent);
+  font-size: .55rem;
+  vertical-align: .12em;
+}
+
+.continent-page .region-card > p {
+  margin-top: .55rem;
+  color: var(--color-muted);
+}
+
+.continent-page .region-grid {
+    align-items: start;
+}
+
+.continent-page .region-grid > .region-card {
+    align-self: start;
+}
+
+/* ─────────────────────────────────────────────
+   Fold-out conflict records
+   ───────────────────────────────────────────── */
+
+.continent-page .region-detail {
+  margin-top: 1rem;
+  border: 0;
+  border-top: 3px double var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.continent-page .region-detail > summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 2.75rem;
+  padding: .7rem .15rem;
+  color: var(--color-text);
+  font-weight: 800;
+  list-style: none;
+  background: transparent;
+}
+
+.domain-copy-offset {
+    margin-bottom: 46.5px;
+}
+
+.continent-page .region-detail > summary::-webkit-details-marker {
+  display: none;
+}
+
+.continent-page .region-detail > summary::before {
+  content: "◇";
+  color: var(--color-accent);
+  font-size: .6rem;
+}
+
+.continent-page .region-detail > summary::after {
+  content: "+";
+  margin-inline-start: auto;
+  color: var(--color-muted);
+  font-size: .95rem;
+  font-weight: 500;
+}
+
+.continent-page .region-detail[open] > summary {
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.continent-page .region-detail[open] > summary::before {
+  content: "◆";
+}
+
+.continent-page .region-detail[open] > summary::after {
+  content: "−";
+}
+
+.continent-page .region-detail > summary:hover {
+  background: transparent;
+  color: var(--color-accent);
+}
+
+.continent-page .region-detail > div {
+  padding: .8rem .15rem 1rem;
+}
+
+/* ─────────────────────────────────────────────
+   Canon / source note — visible but treated as archive warning
+   ───────────────────────────────────────────── */
+
+.continent-page .source-note {
+  position: relative;
+  margin-top: 1rem;
+  padding: 1rem 1.15rem 1rem 1.35rem;
+  border: 0;
+  border-inline-start: 3px solid var(--nebla-danger);
+  background:
+    linear-gradient(90deg, rgba(110, 70, 82, .10), transparent 82%);
+  color: var(--color-muted);
+}
+
+.continent-page .source-note::before {
+  content: "ARCHIVE NOTE";
+  display: block;
+  margin-bottom: .4rem;
+  color: var(--nebla-danger);
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+/* ─────────────────────────────────────────────
+   Cross references / related links
+   ───────────────────────────────────────────── */
+
+.continent-page .region-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .8rem;
+  margin-block: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.continent-page .region-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .4rem .1rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.continent-page .region-list a::before {
+  content: "◇";
+  color: var(--color-accent);
+  font-size: .5rem;
+}
+
+.continent-page .region-list a:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* ─────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────── */
+
+@media (min-width: 768px) {
+  .continent-page .region-facts > div {
+    display: grid;
+    grid-template-columns: minmax(12rem, 1.05fr) minmax(0, 2.95fr);
+    gap: 1.5rem;
+  }
+
+  .continent-page .region-facts dd {
+    margin: 0;
+  }
+
+  .continent-page .region-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .continent-page .region-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .continent-page .page-heading::after {
+    display: none;
+  }
+
+  .continent-page .page-heading {
+    padding-inline: 1rem;
+  }
+
+  .continent-page .region-nav ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .15rem .75rem;
+  }
+
+  .continent-page .region-nav a {
+    min-height: 2.75rem;
+    padding-inline-end: .25rem;
+  }
+
+  .continent-page > .content-section {
+    padding-block: 2rem;
+  }
+
+  .continent-page > .content-section > h2 {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .25rem;
+  }
+
+  .continent-page .region-card h3 {
+    max-width: none;
+    padding-inline-end: 3.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .continent-page .region-nav a {
+    transition: none;
+  }
+}

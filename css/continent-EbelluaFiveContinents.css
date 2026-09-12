@@ -1,6 +1,391 @@
-/* Page-specific styles are reserved for a later phase. */
+/* Five Continents — cartographic dossier identity.
+   Shared continent behavior remains in continents.css; this file only changes
+   the visual language of the five-continent archive page. */
 
-/* Phase 7: visual and accessibility polish. */
-#serban { --color-accent:#765133; } #graim { --color-accent:#4e606b; } #eluna { --color-accent:#416647; } #jahar { --color-accent:#805039; } #latium { --color-accent:#32666b; }
-#continents > section { border-top:2px solid var(--color-accent); }
+/* ── Page heading ─────────────────────────────────────────── */
+.continent-page .page-heading .eyebrow {
+  margin: 0 0 .7rem;
+  max-width: none;
+  color: var(--color-accent);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  line-height: 1.4;
+}
 
+/* ── Cartographic index ───────────────────────────────────── */
+.continent-page .region-nav {
+  position: relative;
+  margin: 1.75rem 0 2.75rem;
+  padding: .95rem 0 1rem;
+  border: 0;
+  border-block: 3px double var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.continent-page .region-nav-label {
+  display: block;
+  margin-bottom: .55rem;
+  color: var(--color-muted);
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  line-height: 1.4;
+}
+
+.continent-page .region-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .15rem 1.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.continent-page .region-nav li {
+  --nav-accent: var(--color-accent);
+}
+
+.continent-page .region-nav li:nth-child(1) { --nav-accent: #765133; }
+.continent-page .region-nav li:nth-child(2) { --nav-accent: #4e606b; }
+.continent-page .region-nav li:nth-child(3) { --nav-accent: #416647; }
+.continent-page .region-nav li:nth-child(4) { --nav-accent: #805039; }
+.continent-page .region-nav li:nth-child(5) { --nav-accent: #32666b; }
+
+.continent-page .region-nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: .35rem .15rem .35rem 1.35rem;
+  color: var(--color-text);
+  font-size: .9rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color .16s ease, transform .16s ease;
+}
+
+.continent-page .region-nav a::before {
+  content: "◇";
+  position: absolute;
+  left: .05rem;
+  color: var(--nav-accent);
+  font-size: .68rem;
+  line-height: 1;
+}
+
+.continent-page .region-nav li:nth-child(1) a::after { content: "01"; }
+.continent-page .region-nav li:nth-child(2) a::after { content: "02"; }
+.continent-page .region-nav li:nth-child(3) a::after { content: "03"; }
+.continent-page .region-nav li:nth-child(4) a::after { content: "04"; }
+.continent-page .region-nav li:nth-child(5) a::after { content: "05"; }
+.continent-page .region-nav li:nth-child(6) a::after { content: "REL"; }
+.continent-page .region-nav li:nth-child(7) a::after { content: "MAP"; }
+
+.continent-page .region-nav a::after {
+  order: -1;
+  margin-right: .45rem;
+  color: var(--color-muted);
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  opacity: .7;
+}
+
+.continent-page .region-nav a:hover,
+.continent-page .region-nav a:focus-visible {
+  color: var(--nav-accent);
+  transform: translateX(2px);
+}
+
+/* ── Shared archive section rhythm ────────────────────────── */
+.continent-page .content-section {
+  position: relative;
+  padding-block: 2.6rem;
+}
+
+.continent-page .content-section + .content-section,
+.continent-page #continents + .content-section,
+.continent-page #world-map + .content-section {
+  border-top: 0;
+}
+
+.continent-page .content-section > h2 {
+  margin: 0 0 1.15rem;
+  padding: 0;
+  border: 0;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  letter-spacing: -.03em;
+}
+
+.continent-page .content-section > h2::before {
+  display: inline-block;
+  margin-right: .65rem;
+  color: var(--color-accent);
+  font-size: .63em;
+  font-weight: 800;
+  letter-spacing: .08em;
+  vertical-align: .08em;
+}
+
+.continent-page #overview > h2::before { content: "◇"; }
+.continent-page #relations > h2::before { content: "↔"; }
+.continent-page #world-map > h2::before { content: "MAP"; font-size: .43em; }
+.continent-page #related-pages > h2::before { content: "→"; }
+
+.continent-page .content-section > p {
+  max-width: 72ch;
+  line-height: 1.95;
+}
+
+/* ── The five continent dossiers ──────────────────────────── */
+#serban { --color-accent: #765133; --continent-wash: #f0e6da; }
+#graim  { --color-accent: #4e606b; --continent-wash: #e6ecef; }
+#eluna  { --color-accent: #416647; --continent-wash: #e6eee6; }
+#jahar  { --color-accent: #805039; --continent-wash: #f2e5da; }
+#latium { --color-accent: #32666b; --continent-wash: #e2edef; }
+
+.continent-page #continents {
+  counter-reset: continent-record;
+}
+
+.continent-page #continents > section {
+  counter-increment: continent-record;
+  position: relative;
+  margin-top: 1.25rem;
+  padding: clamp(2.3rem, 4vw, 3.6rem) clamp(.85rem, 2vw, 1.4rem) 3rem;
+  border: 0;
+  border-top: 3px double var(--color-accent);
+  background:
+    linear-gradient(90deg, var(--continent-wash), transparent min(38rem, 58%));
+}
+
+.continent-page #continents > section::before {
+  content: "CONTINENT RECORD 0" counter(continent-record);
+  display: block;
+  margin-bottom: .7rem;
+  color: var(--color-accent);
+  font-size: .61rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  line-height: 1.4;
+  opacity: .82;
+}
+
+.continent-page #continents > section > h2::before {
+  content: "◇";
+  margin-right: .6rem;
+  font-size: .64em;
+}
+
+.continent-page #continents > section:target {
+  outline: 0;
+  background:
+    linear-gradient(90deg, var(--continent-wash), transparent min(45rem, 70%));
+}
+
+/* ── Region facts: atlas registry rows, not cards ─────────── */
+.continent-page .region-facts {
+  margin: 1.7rem 0 1.25rem;
+  max-width: 72rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.continent-page .region-facts > div {
+  position: relative;
+  max-width: none;
+  padding: 1.15rem .85rem 1.15rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  border-left: 2px solid transparent;
+  transition: border-color .16s ease, background-color .16s ease;
+}
+
+.continent-page .region-facts > div:hover {
+  border-left-color: var(--color-accent);
+  background: var(--continent-wash, var(--color-accent-soft));
+}
+
+.continent-page .region-facts dt {
+  position: relative;
+  padding-left: 1.15rem;
+  color: var(--color-accent);
+  font-size: .96rem;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.continent-page .region-facts dt::before {
+  content: "◇";
+  position: absolute;
+  left: 0;
+  top: .12em;
+  font-size: .62rem;
+  color: var(--color-accent);
+}
+
+.continent-page .region-facts dd {
+  margin: .45rem 0 0;
+  color: var(--color-text);
+  line-height: 1.9;
+}
+
+/* ── Fold-out regional notes ──────────────────────────────── */
+.continent-page .region-detail {
+  margin-top: 1.55rem;
+  border: 0;
+  border-block: 3px double var(--color-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.continent-page .region-detail > summary {
+  position: relative;
+  min-height: 2.75rem;
+  padding: .9rem 2rem .9rem 1.25rem;
+  color: var(--color-text);
+  font-weight: 800;
+  list-style: none;
+  transition: color .16s ease;
+}
+
+.continent-page .region-detail > summary::-webkit-details-marker { display: none; }
+
+.continent-page .region-detail > summary::before {
+  content: "◇";
+  margin-right: .65rem;
+  color: var(--color-accent);
+  font-size: .65rem;
+}
+
+.continent-page .region-detail > summary::after {
+  content: "+";
+  position: absolute;
+  right: .35rem;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.continent-page .region-detail[open] > summary {
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.continent-page .region-detail[open] > summary::before { content: "◆"; }
+.continent-page .region-detail[open] > summary::after { content: "−"; }
+.continent-page .region-detail > summary:hover { background: transparent; color: var(--color-accent); }
+.continent-page .region-detail > div { padding: .7rem 1.25rem 1.2rem; }
+
+/* ── Cross references ─────────────────────────────────────── */
+.continent-page .region-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem 1.25rem;
+  margin: 1.2rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.continent-page .region-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  color: var(--color-accent);
+  font-size: .9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.continent-page .region-list a::before {
+  content: "◇";
+  margin-right: .45rem;
+  font-size: .58rem;
+}
+
+.continent-page .region-list a::after {
+  content: "→";
+  margin-left: .45rem;
+  color: var(--color-muted);
+  font-size: .78rem;
+  transition: transform .16s ease;
+}
+
+.continent-page .region-list a:hover::after { transform: translateX(3px); }
+
+/* ── Relations / map / closing record ────────────────────── */
+.continent-page #relations,
+.continent-page #world-map,
+.continent-page #related-pages {
+  margin-top: 1rem;
+  border-top: 3px double var(--color-border);
+}
+
+.continent-page #relations {
+  background: linear-gradient(90deg, var(--color-accent-soft), transparent 56%);
+  padding-inline: clamp(.75rem, 2vw, 1.25rem);
+}
+
+.continent-page #related-pages .button {
+  margin-top: .65rem;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ── Desktop registry columns ─────────────────────────────── */
+@media (min-width: 768px) {
+  .continent-page .region-facts > div {
+    display: grid;
+    grid-template-columns: minmax(12rem, .9fr) minmax(0, 2.7fr);
+    gap: 1.75rem;
+    align-items: start;
+  }
+
+  .continent-page .region-facts dd { margin: 0; }
+}
+
+/* ── Mobile / tablet ──────────────────────────────────────── */
+@media (max-width: 767px) {
+  .continent-page .region-nav {
+    margin-bottom: 1.8rem;
+  }
+
+  .continent-page .region-nav ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 .75rem;
+  }
+
+  .continent-page .region-nav a {
+    width: 100%;
+    min-height: 2.9rem;
+    font-size: .86rem;
+  }
+
+  .continent-page #continents > section {
+    margin-inline: calc(-1 * .15rem);
+    padding-inline: .55rem;
+    background: linear-gradient(90deg, var(--continent-wash), transparent 88%);
+  }
+
+  .continent-page #continents > section::before {
+    font-size: .56rem;
+  }
+
+  .continent-page .region-facts > div {
+    padding-inline: .5rem;
+  }
+
+  .continent-page .region-facts dt {
+    font-size: .92rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .continent-page .region-nav a,
+  .continent-page .region-facts > div,
+  .continent-page .region-list a::after {
+    transition: none;
+  }
+}

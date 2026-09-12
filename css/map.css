@@ -10,3 +10,52 @@
 .world-map > a:hover,.world-map > a:focus-visible { box-shadow:var(--shadow-raised); }
 .world-map figcaption { border-inline-start:2px solid var(--color-accent); padding-left:.75rem; }
 
+
+/* Ebellua introduction: archived-original presentation, scoped to this page. */
+.ebellua-page .world-map {
+  margin: 1.75rem 0 0;
+  padding-top: .8rem;
+  border-top: 3px double var(--color-border);
+}
+
+.ebellua-page .world-map > a {
+  display: block;
+  padding: .55rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  background: var(--color-surface);
+  box-shadow: none;
+}
+
+.ebellua-page .world-map > a:hover,
+.ebellua-page .world-map > a:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: none;
+}
+
+.ebellua-page .world-map img {
+  width: 100%;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+}
+
+.ebellua-page .world-map figcaption {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin-top: .7rem;
+  padding: .65rem 0 0;
+  border: 0;
+  color: var(--color-muted);
+  font-size: .8rem;
+  letter-spacing: .03em;
+}
+
+.ebellua-page .world-map figcaption::before {
+  content: "FIG. 01 ◇";
+  color: var(--color-accent);
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}

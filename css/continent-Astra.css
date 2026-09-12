@@ -1,10 +1,445 @@
-/* Page-specific styles are reserved for a later phase. */
+/* Astra — Celestial Observation Archive
+   Page-specific visual language only.
+   common.css / continents.css behavior is preserved. */
 
-/* Phase 7: visual and accessibility polish. */
-body { --color-background:#f0f5f8; --color-surface:#fcfdff; --color-accent:#335e7a; --color-accent-soft:#deebf4; --color-border:#c4d4df; --page-glow:#d8e9f7; --color-text:#25323c; --color-muted:#536371; }
-.continent-page .page-heading { background:radial-gradient(ellipse at 75% 0,#fff,transparent 70%),linear-gradient(140deg,#edf5fb,#dae8f4); }
+body {
+  --color-background: #f1f6f9;
+  --color-surface: #fcfeff;
+  --color-accent: #335e7a;
+  --color-accent-soft: #deebf4;
+  --color-border: #c4d4df;
+  --page-glow: #d8e9f7;
+  --color-text: #25323c;
+  --color-muted: #536371;
 
+  --astra-gold: #9a8351;
+  --astra-sky: #6e96b0;
+  --astra-line: rgba(51, 94, 122, .22);
+  --astra-faint: rgba(51, 94, 122, .07);
+  --astra-white: rgba(255,255,255,.68);
+}
 
-/* Phase 7.5: archive identity. */
-.continent-page .region-card { border-radius:0 2rem 0 0; box-shadow:none; border-top-width:1px; padding:1.7rem; }
-.continent-page .region-nav { border-radius:0; box-shadow:none; border-inline:0; }
+/* ─────────────────────────────────────────────
+   Celestial page heading
+   ───────────────────────────────────────────── */
+
+.continent-page .page-heading {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-block: 3px double var(--color-border);
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    radial-gradient(ellipse at 78% 5%, rgba(255,255,255,.98), transparent 35%),
+    linear-gradient(115deg, rgba(222,235,244,.82), rgba(255,255,255,.25) 62%, transparent);
+  padding-inline: clamp(1rem, 3vw, 1.8rem);
+}
+
+.continent-page .page-heading::after {
+  content: "OBSERVATION";
+  position: absolute;
+  inset-inline-end: clamp(1rem, 3vw, 2rem);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  color: rgba(14, 56, 172, 0.212);
+  font-size: clamp(.62rem, 1.1vw, .82rem);
+  font-weight: 900;
+  letter-spacing: .22em;
+  pointer-events: none;
+}
+
+.continent-page .page-heading .eyebrow {
+  margin: 0 0 .55rem;
+  color: var(--color-muted);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.continent-page .page-heading h1 {
+  color: #29485d;
+  letter-spacing: -.04em;
+}
+
+/* ─────────────────────────────────────────────
+   Observation index — airy, linear, no cards
+   ───────────────────────────────────────────── */
+
+.continent-page > .astra-index {
+  margin-block: 1.6rem 2.4rem;
+  padding: .95rem 0 1rem;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 3px double var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.continent-page .index-label {
+  display: block;
+  margin-bottom: .7rem;
+  color: var(--color-muted);
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+}
+
+.continent-page .region-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2rem 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.continent-page .region-nav li {
+  position: relative;
+}
+
+.continent-page .region-nav a {
+  position: relative;
+  min-height: 2.6rem;
+  padding: .45rem .15rem .45rem 1.25rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  transition: color .16s ease, transform .16s ease;
+}
+
+.continent-page .region-nav a::before {
+  content: "◇";
+  position: absolute;
+  inset-inline-start: 0;
+  color: var(--astra-sky);
+  font-size: .64rem;
+  background: transparent;
+}
+
+.continent-page .region-nav a:hover,
+.continent-page .region-nav a:focus-visible {
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* ─────────────────────────────────────────────
+   Top-level sections — celestial records
+   ───────────────────────────────────────────── */
+
+.continent-page {
+  counter-reset: astra-section;
+}
+
+.continent-page > .content-section {
+  counter-increment: astra-section;
+  position: relative;
+  padding-block: 2.9rem;
+  border-top: 0;
+}
+
+.continent-page > .content-section + .content-section::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-border), rgba(196,212,223,.35), transparent 80%);
+}
+
+.continent-page > .content-section + .content-section::after {
+  content: "◇";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: -.55rem;
+  padding-inline-end: .35rem;
+  color: var(--astra-gold);
+  background: var(--color-background);
+  font-size: .72rem;
+}
+
+.continent-page > .content-section > h2 {
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  margin-bottom: 1.2rem;
+  color: #2c4a5c;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  letter-spacing: -.025em;
+}
+
+.continent-page > .content-section > h2::before {
+  content: "§ " counter(astra-section, decimal-leading-zero);
+  flex: 0 0 auto;
+  color: var(--color-muted);
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.continent-page .section-link {
+  width: .01px;
+  height: .01px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+}
+
+/* ─────────────────────────────────────────────
+   Factions — observatory dossiers, not generic cards
+   ───────────────────────────────────────────── */
+
+.continent-page .faction-grid {
+  display: grid;
+  gap: 1.15rem;
+  margin-top: 1.55rem;
+}
+
+.continent-page .faction-grid .region-card {
+  position: relative;
+  min-width: 0;
+  padding: 1.45rem 1.45rem 1.5rem;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  background:
+    linear-gradient(120deg, var(--astra-white), rgba(222,235,244,.18) 55%, transparent);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.continent-page .faction-grid .region-card::before {
+  content: "CELESTIAL RECORD";
+  display: block;
+  margin-bottom: .75rem;
+  color: rgba(51, 94, 122, .46);
+  font-size: .57rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+
+.continent-page .faction-grid .region-card::after {
+  content: "✦";
+  position: absolute;
+  inset-inline-end: 1rem;
+  inset-block-start: .9rem;
+  color: rgba(154,131,81,.34);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.continent-page .faction-grid .region-card h3 {
+  margin: 0 0 .75rem;
+  color: #29485d;
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.continent-page .faction-grid .region-card > p {
+  color: var(--color-muted);
+}
+
+/* small visual differentiation without changing lore */
+#observers { --faction-accent: #537a92; }
+#interventionists { --faction-accent: #8b7550; }
+#pure-white { --faction-accent: #7a8892; }
+
+#observers,
+#interventionists,
+#pure-white {
+  border-inline-start: 2px solid var(--faction-accent);
+}
+
+/* ─────────────────────────────────────────────
+   Places / relations — archive rows
+   ───────────────────────────────────────────── */
+
+.continent-page .region-facts {
+  margin-block: 1.4rem;
+  max-width: 72rem;
+  border-top: 3px double var(--color-border);
+}
+
+.continent-page .region-facts > div {
+  position: relative;
+  padding: 1.05rem 0 1.05rem 1.1rem;
+  border-bottom: 1px solid var(--color-border);
+  border-inline-start: 2px solid var(--astra-faint);
+  max-width: none;
+}
+
+.continent-page .region-facts > div:hover {
+  border-inline-start-color: var(--astra-sky);
+}
+
+.continent-page .region-facts dt {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+.continent-page .region-facts dd {
+  color: var(--color-muted);
+}
+
+/* ─────────────────────────────────────────────
+   Fold-out memory / dispute record
+   ───────────────────────────────────────────── */
+
+.continent-page .region-detail {
+  margin-top: 1.2rem;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 3px double var(--color-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.continent-page .region-detail > summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  min-height: 2.8rem;
+  padding: .75rem .1rem;
+  color: var(--color-text);
+  font-weight: 800;
+  list-style: none;
+  background: transparent;
+}
+
+.continent-page .region-detail > summary::-webkit-details-marker {
+  display: none;
+}
+
+.continent-page .region-detail > summary::before {
+  content: "◇";
+  color: var(--astra-gold);
+  font-size: .62rem;
+}
+
+.continent-page .region-detail > summary::after {
+  content: "+";
+  margin-inline-start: auto;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.continent-page .region-detail[open] > summary {
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.continent-page .region-detail[open] > summary::before {
+  content: "◆";
+}
+
+.continent-page .region-detail[open] > summary::after {
+  content: "−";
+}
+
+.continent-page .region-detail > summary:hover {
+  color: var(--color-accent);
+  background: transparent;
+}
+
+.continent-page .region-detail > div {
+  padding: .85rem .1rem 1rem;
+}
+
+/* ─────────────────────────────────────────────
+   Related records
+   ───────────────────────────────────────────── */
+
+.continent-page .region-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem .9rem;
+  margin-block: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.continent-page .region-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: .42rem;
+  padding: .4rem .1rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.continent-page .region-list a::before {
+  content: "◇";
+  color: var(--astra-gold);
+  font-size: .5rem;
+}
+
+.continent-page .region-list a:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--astra-sky);
+}
+
+/* ─────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────── */
+
+@media (min-width: 768px) {
+  .continent-page .region-facts > div {
+    display: grid;
+    grid-template-columns: minmax(12rem, 1.05fr) minmax(0, 2.95fr);
+    gap: 1.6rem;
+  }
+
+  .continent-page .region-facts dd {
+    margin: 0;
+  }
+
+  .continent-page .faction-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .continent-page .page-heading::after {
+    display: none;
+  }
+
+  .continent-page .page-heading {
+    padding-inline: 1rem;
+  }
+
+  .continent-page .region-nav ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .15rem .8rem;
+  }
+
+  .continent-page .region-nav a {
+    min-height: 2.75rem;
+  }
+
+  .continent-page > .content-section {
+    padding-block: 2.1rem;
+  }
+
+  .continent-page > .content-section > h2 {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .25rem;
+  }
+
+  .continent-page .faction-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .continent-page .region-nav a {
+    transition: none;
+  }
+}

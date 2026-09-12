@@ -1,6 +1,537 @@
-/* Shared character directory styles, scoped to the two directories. */
+/* Shared character directory styles. */
 @import url("./characters.css");
 
-/* Phase 7: visual and accessibility polish. */
-body { --color-accent:#5e4d39; --page-glow:#e7dccb; }
+/* =========================================================
+   Ebellua World Characters — Personnel Registry / Dossier
+   This file only overrides the WORLD directory.
+   character-filter.js / common.js are intentionally untouched.
+   ========================================================= */
 
+body {
+  --color-accent: #5e4d39;
+  --page-glow: #e7dccb;
+
+  --registry-ink: #463827;
+  --registry-muted: #726858;
+  --registry-line: #d5cbbb;
+  --registry-line-strong: #9b896f;
+  --registry-paper: rgba(255, 255, 255, .38);
+  --registry-wash: rgba(94, 77, 57, .065);
+}
+
+/* ─────────────────────────────────────────────
+   Page heading — personnel archive header
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="world"] .page-heading {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-block: 3px double var(--registry-line-strong);
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    linear-gradient(105deg, var(--color-accent-soft), transparent 72%);
+  padding-inline: clamp(1rem, 3vw, 1.75rem);
+}
+
+.character-page[data-directory="world"] .page-heading::after {
+  content: "PERSONNEL";
+  position: absolute;
+  inset-inline-end: clamp(1rem, 3vw, 2rem);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  color: rgba(94, 77, 57, .16);
+  font-size: clamp(.62rem, 1.1vw, .86rem);
+  font-weight: 900;
+  letter-spacing: .22em;
+  pointer-events: none;
+}
+
+.character-page[data-directory="world"] .page-heading .eyebrow {
+  margin: 0 0 .55rem;
+  color: var(--registry-muted);
+  font-size: .67rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+.character-page[data-directory="world"] .page-heading h1 {
+  color: var(--registry-ink);
+  letter-spacing: -.04em;
+}
+
+/* ─────────────────────────────────────────────
+   Search / filter controls — archive retrieval desk
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="world"] .directory-controls {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0 2.3rem;
+  padding: 1.15rem 0 1.25rem;
+  border: 0;
+  border-top: 3px double var(--registry-line-strong);
+  border-bottom: 1px solid var(--registry-line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.character-page[data-directory="world"] .directory-controls::before {
+  content: "ARCHIVE SEARCH / FILTER";
+  display: block;
+  color: var(--registry-muted);
+  font-size: .61rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.character-page[data-directory="world"] .search-field,
+.character-page[data-directory="world"] .directory-filters label {
+  color: var(--registry-muted);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
+.character-page[data-directory="world"] .search-field input,
+.character-page[data-directory="world"] .directory-filters select {
+  width: 100%;
+  min-height: 2.8rem;
+  margin-top: .4rem;
+  padding: .58rem .7rem;
+  border: 0;
+  border-bottom: 1px solid var(--registry-line-strong);
+  border-radius: 0;
+  color: var(--color-text);
+  background:
+    linear-gradient(180deg, transparent, rgba(94, 77, 57, .025));
+  box-shadow: none;
+}
+
+.character-page[data-directory="world"] .search-field input:focus,
+.character-page[data-directory="world"] .directory-filters select:focus {
+  border-bottom-color: var(--color-accent);
+  outline-offset: 3px;
+}
+
+.character-page[data-directory="world"] .directory-filters {
+  display: grid;
+  gap: .8rem;
+}
+
+.character-page[data-directory="world"] .directory-controls > .button {
+  justify-self: start;
+  min-height: 2.55rem;
+  padding: .45rem .85rem;
+  border: 1px solid var(--registry-line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--registry-ink);
+  box-shadow: none;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
+.character-page[data-directory="world"] .directory-controls > .button:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  box-shadow: none;
+}
+
+/* ─────────────────────────────────────────────
+   Directory heading / count
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="world"] #character-directory {
+  position: relative;
+}
+
+.character-page[data-directory="world"] #directory-heading {
+  display: flex;
+  align-items: baseline;
+  gap: .65rem;
+  margin-bottom: .35rem;
+  color: var(--registry-ink);
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+}
+
+.character-page[data-directory="world"] #directory-heading::before {
+  content: "◇";
+  color: var(--color-accent);
+  font-size: .68em;
+}
+
+.character-page[data-directory="world"] #result-count {
+  margin-top: .3rem;
+  color: var(--registry-muted);
+  font-size: .84rem;
+  letter-spacing: .03em;
+}
+
+.character-page[data-directory="world"] #empty-result {
+  margin-top: 1rem;
+  padding: 1rem 0 1rem 1rem;
+  border-inline-start: 3px solid var(--color-accent);
+  background: linear-gradient(90deg, var(--registry-wash), transparent 80%);
+}
+
+/* ─────────────────────────────────────────────
+   Character grid — registry files, not generic cards
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="world"] .character-grid {
+  counter-reset: world-record;
+  display: grid;
+  gap: 1.15rem;
+  margin-top: 1.35rem;
+  align-items: start;
+}
+
+.character-page[data-directory="world"] .character-card {
+  counter-increment: world-record;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--registry-line);
+  border-top: 3px double var(--registry-line-strong);
+  border-radius: 0;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.46), rgba(94,77,57,.025));
+  box-shadow: none;
+  transition:
+    border-color .16s ease,
+    transform .16s ease,
+    background-color .16s ease;
+}
+
+.character-page[data-directory="world"] .character-card::before {
+  content: "RECORD " counter(world-record, decimal-leading-zero);
+  position: absolute;
+  z-index: 2;
+  inset-inline-end: .72rem;
+  inset-block-start: .55rem;
+  color: rgba(70, 56, 39, .40);
+  font-size: .56rem;
+  font-weight: 900;
+  letter-spacing: .13em;
+  pointer-events: none;
+}
+
+.character-page[data-directory="world"] .character-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--registry-line-strong);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.62), rgba(94,77,57,.045));
+}
+
+.character-page[data-directory="world"] .character-portrait {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 0;
+  border-bottom: 1px solid var(--registry-line);
+  border-radius: 0;
+  background: var(--color-accent-soft);
+}
+
+.character-page[data-directory="world"] .character-card-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 15rem;
+  padding: 1rem 1.05rem 1.05rem;
+}
+
+.character-page[data-directory="world"] .character-card-body h3 {
+  margin: 0;
+  padding-inline-end: 4.5rem;
+  color: var(--registry-ink);
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.character-page[data-directory="world"] .character-card-body h3::before {
+  content: "◆";
+  margin-inline-end: .4rem;
+  color: var(--color-accent);
+  font-size: .48rem;
+  vertical-align: .15em;
+}
+
+.character-page[data-directory="world"] .character-meta {
+  margin-top: .55rem;
+  padding-bottom: .7rem;
+  border-bottom: 1px solid var(--registry-line);
+  color: var(--color-accent);
+  font-size: .76rem;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.character-page[data-directory="world"] .character-summary {
+  margin-top: .8rem;
+  color: var(--registry-muted);
+  font-size: .9rem;
+  line-height: 1.75;
+}
+
+.character-page[data-directory="world"] .character-card-body > .button {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: .45rem .15rem .3rem;
+  min-height: 2.2rem;
+  border: 0;
+  border-bottom: 1px solid var(--registry-line-strong);
+  border-radius: 0;
+  color: var(--registry-ink);
+  background: transparent;
+  box-shadow: none;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.character-page[data-directory="world"] .character-card-body > .button::before {
+  content: "◇";
+  margin-inline-end: .4rem;
+  color: var(--color-accent);
+  font-size: .52rem;
+}
+
+.character-page[data-directory="world"] .character-card-body > .button::after {
+  content: " →";
+  color: var(--registry-muted);
+}
+
+.character-page[data-directory="world"] .character-card-body > .button:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  background: transparent;
+}
+
+/* ─────────────────────────────────────────────
+   Character modal — full dossier
+   ───────────────────────────────────────────── */
+
+.character-page[data-directory="world"] .character-modal {
+  width: min(66rem, calc(100% - 2rem));
+  max-height: min(88vh, 58rem);
+  padding: 0;
+  border: 1px solid var(--registry-line-strong);
+  border-top: 4px double var(--color-accent);
+  border-radius: 0;
+  color: var(--color-text);
+  background:
+    linear-gradient(145deg, #fbfaf6, #f4f0e7);
+  box-shadow: 0 24px 70px rgb(34 28 20 / .28);
+}
+
+.character-page[data-directory="world"] .character-modal::backdrop {
+  background: rgba(29, 25, 20, .66);
+  backdrop-filter: blur(2px);
+}
+
+.character-page[data-directory="world"] .modal-toolbar {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: .65rem .8rem;
+  border-bottom: 1px solid var(--registry-line);
+  background: rgba(250, 248, 241, .94);
+  backdrop-filter: blur(7px);
+}
+
+.character-page[data-directory="world"] .modal-toolbar .button {
+  min-height: 2.3rem;
+  padding: .38rem .7rem;
+  border: 0;
+  border-bottom: 1px solid var(--registry-line-strong);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--registry-ink);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.character-page[data-directory="world"] .modal-toolbar .button::before {
+  content: "×";
+  margin-inline-end: .35rem;
+  color: var(--color-accent);
+}
+
+.character-page[data-directory="world"] .modal-content {
+  display: grid;
+  gap: 0;
+  align-items: start;
+}
+
+.character-page[data-directory="world"] .modal-content > .character-portrait {
+  width: 100%;
+  height: 100%;
+  max-height: 48rem;
+  aspect-ratio: auto;
+  object-fit: cover;
+  border: 0;
+  border-bottom: 1px solid var(--registry-line);
+}
+
+.character-page[data-directory="world"] .modal-copy {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.character-page[data-directory="world"] .modal-copy::before {
+  content: "PERSONNEL DOSSIER";
+  display: block;
+  margin-bottom: .55rem;
+  color: var(--registry-muted);
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.character-page[data-directory="world"] .modal-copy h2 {
+  margin: 0 0 1.25rem;
+  padding-bottom: .85rem;
+  border-bottom: 3px double var(--registry-line-strong);
+  color: var(--registry-ink);
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  letter-spacing: -.035em;
+}
+
+.character-page[data-directory="world"] .modal-copy h2::before {
+  content: "◆";
+  margin-inline-end: .55rem;
+  color: var(--color-accent);
+  font-size: .48em;
+  vertical-align: .12em;
+}
+
+.character-page[data-directory="world"] .modal-facts {
+  display: grid;
+  grid-template-columns: minmax(5.2rem, auto) minmax(0, 1fr);
+  gap: 0;
+  margin: 0 0 1.3rem;
+  border-top: 1px solid var(--registry-line);
+}
+
+.character-page[data-directory="world"] .modal-facts dt,
+.character-page[data-directory="world"] .modal-facts dd {
+  margin: 0;
+  padding: .6rem .4rem;
+  border-bottom: 1px solid var(--registry-line);
+}
+
+.character-page[data-directory="world"] .modal-facts dt {
+  color: var(--registry-muted);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.character-page[data-directory="world"] .modal-facts dd {
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+.character-page[data-directory="world"] .modal-copy > p {
+  margin-top: 1rem;
+  color: var(--color-text);
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+.character-page[data-directory="world"] .modal-copy > p + p {
+  padding-top: 1rem;
+  border-top: 1px solid var(--registry-line);
+}
+
+/* ─────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────── */
+
+@media (min-width: 560px) {
+  .character-page[data-directory="world"] .directory-controls {
+    grid-template-columns: minmax(14rem, 1.4fr) minmax(12rem, 1fr) auto;
+    align-items: end;
+  }
+
+  .character-page[data-directory="world"] .directory-controls::before {
+    grid-column: 1 / -1;
+  }
+
+  .character-page[data-directory="world"] .directory-filters {
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+
+  .character-page[data-directory="world"] .character-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .character-page[data-directory="world"] .character-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .character-page[data-directory="world"] .modal-content {
+    grid-template-columns: minmax(18rem, .85fr) minmax(0, 1.35fr);
+  }
+
+  .character-page[data-directory="world"] .modal-content > .character-portrait {
+    position: sticky;
+    top: 3.65rem;
+    border-right: 1px solid var(--registry-line);
+    border-bottom: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .character-page[data-directory="world"] .character-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 559px) {
+  .character-page[data-directory="world"] .page-heading::after {
+    display: none;
+  }
+
+  .character-page[data-directory="world"] .page-heading {
+    padding-inline: 1rem;
+  }
+
+  .character-page[data-directory="world"] .directory-controls {
+    gap: .85rem;
+  }
+
+  .character-page[data-directory="world"] .character-card-body {
+    min-height: 0;
+  }
+
+  .character-page[data-directory="world"] .character-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .character-page[data-directory="world"] .character-modal {
+    width: calc(100% - 1rem);
+    max-height: 92vh;
+  }
+
+  .character-page[data-directory="world"] .modal-facts {
+    grid-template-columns: 4.7rem minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .character-page[data-directory="world"] .character-card {
+    transition: none;
+  }
+}
